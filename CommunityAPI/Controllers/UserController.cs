@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CommunityAPI.Data;
 using CommunityAPI.Models;
+using CommunityAPI.Interfaces;
 
 namespace CommunityAPI.Controllers
 {
@@ -10,34 +11,35 @@ namespace CommunityAPI.Controllers
         [Route("api/users")]
         public class UserController : ControllerBase
         {
-            private readonly AppDbContext _db;
-            public UserController(AppDbContext db)
-            {
-                _db = db;
-            }
+            private readonly IUserService _userService;
 
+            public UserController(IUserService userService)
+            {
+                _userService = userService;
+            }
             [HttpPost]
             public IActionResult CreateUser()
+        {
+            var user = new User
             {
-                var user = new User
-                {
-                    Username = "test",
-                    Password = "test",
-                    Email = "test@test.com"
-                };
+                Username = "testuser",
+                Password = "password123",
+                Email = "test@gmail.com"
+            };
 
-                _db.Users.Add(user);
-                _db.SaveChanges();
-
-                return Ok(user);
-            }
-
-            [HttpGet]
-            public IActionResult GetUsers()
-            {
-                var users = _db.Users.ToList();
-                return Ok(users);
-            }
+            _userService.CreateUser(user);
+            return Ok(user);
         }
+
+        [HttpGet]
+        public IActionResult GetUsers()
+
+        { 
+            return Ok(_userService.GetAllUsers());
+        }
+
+
+
+    }
 }
 

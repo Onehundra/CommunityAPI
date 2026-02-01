@@ -13,7 +13,7 @@ namespace CommunityAPI.Services
         }
         public void CreateUser(User user)
         {
-
+            _userRepo.AddUser(user);
         }
 
         public List<User> GetAllUsers()
