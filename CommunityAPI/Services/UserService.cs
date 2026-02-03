@@ -20,5 +20,15 @@ namespace CommunityAPI.Services
         {
             return _userRepo.GetAllUsers();
         }
+
+        public User? GetUserById(int id)
+        {
+            return _userRepo.GetUserById(id);
+        }
+        public User? Login(string username, string password)
+        {
+            return _userRepo.Login(username, password);
+        }
+
     }
 }

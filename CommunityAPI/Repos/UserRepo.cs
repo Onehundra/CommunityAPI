@@ -22,5 +22,14 @@ namespace CommunityAPI.Repos
         {
             return _db.Users.ToList();
         }
+
+        public User? GetUserById(int id)
+        {
+            return _db.Users.FirstOrDefault(u => u.Id == id);
+        }
+        public User? Login(string username, string password)
+        {
+            return _db.Users.FirstOrDefault( u => u.Username == username && u.Password == password);
+        }
     }
 }

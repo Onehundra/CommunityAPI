@@ -12,6 +12,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer( "Se
 
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+
+
 var app = builder.Build();
 
 app.MapControllers();
