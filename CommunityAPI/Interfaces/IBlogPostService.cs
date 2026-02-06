@@ -4,6 +4,8 @@ namespace CommunityAPI.Interfaces
 {
     public interface IBlogPostService
     {
-        void Create(BlogPost post);
+        Task CreateAsync(BlogPost post);
+        Task<BlogPost?> GetByIdAsync(int id);
+        Task UpdateAsync (BlogPost post);
     }
 }

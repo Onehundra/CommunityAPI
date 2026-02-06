@@ -5,10 +5,10 @@ namespace CommunityAPI.Interfaces
 {
     public interface IUserRepo
     {
-        void AddUser(User user);
-        List<User> GetAllUsers();
+        Task AddUserAsync(User user);
+        Task <List<User>> GetAllUsersAsync();
 
-        User? GetUserById(int id);
-        User? Login(string username, string password);
+        Task <User?> GetUserByIdAsync(int id);
+        Task <User?> LoginAsync(string username, string password);
     }
 }

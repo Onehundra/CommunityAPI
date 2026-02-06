@@ -1,7 +1,7 @@
 ﻿using CommunityAPI.Data;
 using CommunityAPI.Models;
 using CommunityAPI.Interfaces;
-
+using Microsoft.EntityFrameworkCore;
 
 
 namespace CommunityAPI.Repos
@@ -16,10 +16,19 @@ namespace CommunityAPI.Repos
         { 
             _db = db;
         }
-        public void Add(BlogPost post)
+        public async Task AddAsync(BlogPost post)
         {
-            _db.BlogPosts.Add(post);
-            _db.SaveChanges();
+            await _db.BlogPosts.AddAsync(post);
+            await _db.SaveChangesAsync();
+        }
+        public async Task<BlogPost?> GetByIdAsync(int id)
+        {
+            return await _db.BlogPosts.FirstOrDefaultAsync(b => b.Id == id);
+        }
+        public async Task UpdateAsync(BlogPost post)
+        {
+            _db.BlogPosts.Update(post);
+            await _db.SaveChangesAsync();
         }
     }
 }

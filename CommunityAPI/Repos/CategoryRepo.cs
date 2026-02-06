@@ -1,6 +1,7 @@
 ﻿using CommunityAPI.Data;
 using CommunityAPI.Interfaces;
 using CommunityAPI.Models;
+using Microsoft.EntityFrameworkCore;
 namespace CommunityAPI.Repos
 {
     public class CategoryRepo : ICategoryRepo
@@ -11,14 +12,18 @@ namespace CommunityAPI.Repos
         {
             _db = db;
         }
-        public void Add(Category category)
+        public async Task AddAsync(Category category)
         {
-            _db.Categories.Add(category);
-            _db.SaveChanges();
+            await _db.Categories.AddAsync(category);
+            await _db.SaveChangesAsync();
         }
-        public List<Category> GetAll()
+        public async Task<List<Category>> GetAllAsync()
         {
-            return _db.Categories.ToList();
+            return await _db.Categories.ToListAsync();
+        }
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await _db.Categories.AnyAsync(c => c.Id == id);
         }
     }
 }

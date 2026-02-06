@@ -4,6 +4,8 @@ namespace CommunityAPI.Interfaces
 {
     public interface IBlogPostRepo
     {
-        void Add(BlogPost post);
+        Task AddAsync(BlogPost post);
+        Task <BlogPost?> GetByIdAsync(int id);
+        Task UpdateAsync(BlogPost post);
     }
 }

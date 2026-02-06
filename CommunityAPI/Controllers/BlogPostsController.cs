@@ -11,26 +11,36 @@ namespace CommunityAPI.Controllers
     public class BlogPostsController : ControllerBase
     {
         private readonly IBlogPostService _blogPostService;
+        private readonly ICategoryService _categoryService;
 
-        public BlogPostsController(IBlogPostService blogPostService)
+        public BlogPostsController(IBlogPostService blogPostService, 
+            ICategoryService categoryService)
         {
             _blogPostService = blogPostService;
+            _categoryService = categoryService;
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateBlogPostDto dto)
+        public async Task<IActionResult> Create([FromBody] CreateBlogPostDto dto)
         {
+            if(!await _categoryService.ExistsAsync(dto.CategoryId))
+                return BadRequest($"Category with Id: {dto.CategoryId} does not exist");
+
+
+
             var post = new BlogPost
             {
                 Title = dto.Title,
                 Content = dto.Content,
                 UserId = dto.UserId,
+                CategoryId = dto.CategoryId,
                 CreatedAt = DateTime.UtcNow,
             };
 
-            _blogPostService.Create(post);
+            await _blogPostService.CreateAsync(post);
             return Ok(post);
 
         }
+
     }
 }

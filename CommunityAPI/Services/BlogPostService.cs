@@ -1,5 +1,6 @@
 ﻿using CommunityAPI.Interfaces;
 using CommunityAPI.Models;
+using Microsoft.EntityFrameworkCore;
 namespace CommunityAPI.Services
 {
     public class BlogPostService : IBlogPostService
@@ -11,9 +12,17 @@ namespace CommunityAPI.Services
             _blogPostRepo = blogPostRepo;
         }
 
-        public void Create(BlogPost post)
+        public async Task CreateAsync(BlogPost post)
         {
-            _blogPostRepo.Add(post);
+            await _blogPostRepo.AddAsync(post);
+        }
+        public async Task<BlogPost?> GetByIdAsync(int id)
+        {
+            return await _blogPostRepo.GetByIdAsync(id);
+        }
+        public async Task UpdateAsync (BlogPost post)
+        {
+            await _blogPostRepo.UpdateAsync(post);
         }
     }
 }

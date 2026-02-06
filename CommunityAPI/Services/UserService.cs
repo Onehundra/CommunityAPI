@@ -11,23 +11,23 @@ namespace CommunityAPI.Services
         {
             _userRepo = userRepo;
         }
-        public void CreateUser(User user)
+        public async Task CreateUserAsync(User user)
         {
-            _userRepo.AddUser(user);
+            await _userRepo.AddUserAsync(user);
         }
 
-        public List<User> GetAllUsers()
+        public async Task <List<User>> GetAllUsersAsync()
         {
-            return _userRepo.GetAllUsers();
+            return await _userRepo.GetAllUsersAsync();
         }
 
-        public User? GetUserById(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
-            return _userRepo.GetUserById(id);
+            return await _userRepo.GetUserByIdAsync(id);
         }
-        public User? Login(string username, string password)
+        public async Task<User?> LoginAsync(string username, string password)
         {
-            return _userRepo.Login(username, password);
+            return await _userRepo.LoginAsync(username, password);
         }
 
     }

@@ -4,7 +4,8 @@ namespace CommunityAPI.Interfaces
 {
     public interface ICategoryRepo
     {
-        void Add (Category category);
-        List<Category> GetAll();
+        Task AddAsync (Category category);
+        Task <List<Category>> GetAllAsync();
+        Task <bool> ExistsAsync(int id);
     }
 }

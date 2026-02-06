@@ -17,7 +17,7 @@ namespace CommunityAPI.Controllers
             _userService = userService;
         }
         [HttpPost]
-        public IActionResult CreateUser([FromBody] CreateUserDto dto)
+        public async Task <IActionResult> CreateUserAsync([FromBody] CreateUserDto dto)
         {
             var user = new User
             {
@@ -27,21 +27,21 @@ namespace CommunityAPI.Controllers
                 
             };
 
-            _userService.CreateUser(user);
+            await _userService.CreateUserAsync(user);
             return Ok(user);
         }
 
         [HttpGet]
-        public IActionResult GetUsers()
+        public async Task<IActionResult> GetUsersAsync()
 
         {
-            return Ok(_userService.GetAllUsers());
+            return Ok(_userService.GetAllUsersAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserById(int id)
+        public async Task<IActionResult> GetUserByIdAsync(int id)
         {
-            var user = _userService.GetUserById(id);
+            var user = await _userService.GetUserByIdAsync(id);
 
             if (user == null)
                 return NotFound($"User With ID {id} Not Found..");
@@ -50,9 +50,9 @@ namespace CommunityAPI.Controllers
 
         }
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto dto)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto dto)
         {
-            var user = _userService.Login(dto.Username, dto.Password);
+            var user = await _userService.LoginAsync(dto.Username, dto.Password);
 
             if (user == null)
                 return Unauthorized("Wrong input details");

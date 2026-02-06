@@ -1,7 +1,7 @@
 ﻿using CommunityAPI.Data;
 using CommunityAPI.Interfaces;
 using CommunityAPI.Models;
-
+using Microsoft.EntityFrameworkCore;
 namespace CommunityAPI.Repos
 {
     public class UserRepo : IUserRepo
@@ -12,24 +12,24 @@ namespace CommunityAPI.Repos
         {
             _db = db;
         }
-        public void AddUser(User user)
+        public async Task AddUserAsync(User user)
         {
-            _db.Users.Add(user);
-            _db.SaveChanges();
+            await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
         }
 
-        public List<User> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            return _db.Users.ToList();
+            return await _db.Users.ToListAsync();
         }
 
-        public User? GetUserById(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
-            return _db.Users.FirstOrDefault(u => u.Id == id);
+            return await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
-        public User? Login(string username, string password)
+        public async Task <User?> LoginAsync(string username, string password)
         {
-            return _db.Users.FirstOrDefault( u => u.Username == username && u.Password == password);
+            return await _db.Users.FirstOrDefaultAsync( u => u.Username == username && u.Password == password);
         }
     }
 }

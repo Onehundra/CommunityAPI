@@ -4,9 +4,9 @@ namespace CommunityAPI.Interfaces
 {
     public interface IUserService
     {
-        void CreateUser(User user);
-        List<User> GetAllUsers();
-        User? GetUserById(int id);
-        User? Login(string username, string password);
+        Task CreateUserAsync(User user);
+        Task <List<User>> GetAllUsersAsync();
+        Task <User?> GetUserByIdAsync(int id);
+        Task <User?> LoginAsync(string username, string password);
     }
 }
