@@ -17,25 +17,42 @@ namespace CommunityAPI.Controllers
             _userService = userService;
         }
         [HttpPost]
-        public async Task <IActionResult> CreateUserAsync([FromBody] CreateUserDto dto)
+        public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserDto dto)
         {
             var user = new User
             {
                 Username = dto.UserName,
                 Password = dto.Password,
                 Email = dto.Email
-                
+
             };
 
             await _userService.CreateUserAsync(user);
-            return Ok(user);
+
+            var result = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
+            };
+            return Ok(result);
+
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsersAsync()
+        public async Task<IActionResult> GetAllUsersAsync()
 
         {
-            return Ok(_userService.GetAllUsersAsync());
+            var users = await _userService.GetAllUsersAsync();
+
+            var result = users.Select(u => new UserDto
+            {
+                Id =u.Id,
+                Username=u.Username,
+                Email = u.Email
+            });
+            return Ok(result);
+                
         }
 
         [HttpGet("{id}")]
@@ -46,9 +63,15 @@ namespace CommunityAPI.Controllers
             if (user == null)
                 return NotFound($"User With ID {id} Not Found..");
 
-            return Ok(user);
-
+            var result = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
+            };
+            return Ok(result);
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginDto dto)
         {
@@ -57,7 +80,14 @@ namespace CommunityAPI.Controllers
             if (user == null)
                 return Unauthorized("Wrong input details");
 
-            return Ok(user.Id);
+            var result = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
+            };
+
+            return Ok(result);
         }
     }
 }
