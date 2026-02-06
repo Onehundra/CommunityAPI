@@ -30,5 +30,10 @@ namespace CommunityAPI.Repos
             _db.BlogPosts.Update(post);
             await _db.SaveChangesAsync();
         }
+        public async Task DeleteAsync(BlogPost post)
+        {
+            _db.BlogPosts.Remove(post);
+            await _db.SaveChangesAsync();
+        }
     }
 }

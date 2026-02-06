@@ -24,5 +24,9 @@ namespace CommunityAPI.Services
         {
             await _blogPostRepo.UpdateAsync(post);
         }
+        public async Task DeleteAsync (BlogPost post)
+        {
+            await _blogPostRepo.DeleteAsync(post);
+        }
     }
 }

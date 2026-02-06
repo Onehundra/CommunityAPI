@@ -39,7 +39,42 @@ namespace CommunityAPI.Controllers
 
             await _blogPostService.CreateAsync(post);
             return Ok(post);
+        }
 
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateBlogPostDto dto)
+        {
+            var post = await _blogPostService.GetByIdAsync(id);
+
+            if (post == null) 
+                return NotFound();
+
+
+            if (post.UserId != dto.UserId) 
+                return Forbid();
+
+            post.Title = dto.Title;
+            post.Content = dto.Content;
+
+            await _blogPostService.UpdateAsync(post);
+            return Ok(post);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete (int id, [FromBody] int userId)
+        {
+            var post = await _blogPostService.GetByIdAsync(id);
+
+            if(post == null)
+                return NotFound();
+
+            if (post.UserId != userId)
+                return Forbid();
+
+            await _blogPostService.DeleteAsync(post);
+            return NoContent();
         }
 
     }

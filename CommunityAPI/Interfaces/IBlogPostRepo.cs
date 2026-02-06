@@ -7,5 +7,6 @@ namespace CommunityAPI.Interfaces
         Task AddAsync(BlogPost post);
         Task <BlogPost?> GetByIdAsync(int id);
         Task UpdateAsync(BlogPost post);
+        Task DeleteAsync(BlogPost post);
     }
 }
