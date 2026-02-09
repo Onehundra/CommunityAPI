@@ -26,7 +26,8 @@ namespace CommunityAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            return Ok(_categoryService.GetAllAsync());
+            var categories = await _categoryService.GetAllAsync();
+            return Ok(categories);
         }
     }
 }
