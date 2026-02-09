@@ -28,5 +28,15 @@ namespace CommunityAPI.Services
         {
             await _blogPostRepo.DeleteAsync(post);
         }
+
+        public async Task<List<BlogPost>> SearchByTitleAsync(string title)
+        {
+            return await _blogPostRepo.SearchByTitleAsync(title);
+        }
+
+        public async Task<List<BlogPost>> SearchByCategoryAsync(int categoryId)
+        {
+            return await _blogPostRepo.SearchByCategoryAsync(categoryId);
+        }
     }
 }

@@ -77,5 +77,21 @@ namespace CommunityAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet("search/{title}")]
+        public async Task<IActionResult> Search(string title)
+        {
+            var posts = await _blogPostService.SearchByTitleAsync(title);
+            return Ok(posts);
+        }
+
+
+        [HttpGet("search/category({categoryId}")]
+        public async Task<IActionResult> SearchByCategory(int categoryId)
+        {
+            var posts = await _blogPostService.SearchByCategoryAsync(categoryId);
+            return Ok(posts);
+        }
+
+
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CommunityAPI.Repos
     
 {
+
     public class BlogPostRepo : IBlogPostRepo
     {
         private readonly AppDbContext _db;
@@ -34,6 +35,16 @@ namespace CommunityAPI.Repos
         {
             _db.BlogPosts.Remove(post);
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<List<BlogPost>> SearchByTitleAsync(string title)
+        {
+            return await _db.BlogPosts.Where(p=> p.Title.Contains(title)).ToListAsync();
+        }
+
+        public async Task<List<BlogPost>> SearchByCategoryAsync(int categoryId)
+        {
+            return await _db.BlogPosts.Where(p=>p.CategoryId == categoryId).ToListAsync();
         }
     }
 }
