@@ -37,8 +37,7 @@ namespace CommunityAPI.Controllers
             {
                 Text = dto.Text,
                 UserId = dto.UserId,
-                BlogPostId = dto.BlogPostId,
-                CreatedAt = DateTime.UtcNow
+                BlogPostId = dto.BlogPostId
             };
             await _commentService.CreateAsync(comment);
             return Ok(comment);

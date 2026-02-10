@@ -19,6 +19,12 @@ namespace CommunityAPI.Controllers
             _blogPostService = blogPostService;
             _categoryService = categoryService;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var posts = await _blogPostService.GetAllAsync();
+            return Ok(posts);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBlogPostDto dto)
@@ -33,8 +39,8 @@ namespace CommunityAPI.Controllers
                 Title = dto.Title,
                 Content = dto.Content,
                 UserId = dto.UserId,
-                CategoryId = dto.CategoryId,
-                CreatedAt = DateTime.UtcNow,
+                CategoryId = dto.CategoryId
+                
             };
 
             await _blogPostService.CreateAsync(post);
@@ -85,7 +91,7 @@ namespace CommunityAPI.Controllers
         }
 
 
-        [HttpGet("search/category({categoryId}")]
+        [HttpGet("search/category/{categoryId}")]
         public async Task<IActionResult> SearchByCategory(int categoryId)
         {
             var posts = await _blogPostService.SearchByCategoryAsync(categoryId);

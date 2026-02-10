@@ -5,8 +5,10 @@ using CommunityAPI.Repos;
 using CommunityAPI.Services;
 
 
-var builder = WebApplication.CreateBuilder(args);
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer( "Server=(localdb)\\MSSQLLocalDB;Database=CommunityDb;Trusted_Connection=True;"));
 
@@ -21,7 +23,11 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 
 
 var app = builder.Build();
-
+if(app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.MapControllers();
 
 app.Run();

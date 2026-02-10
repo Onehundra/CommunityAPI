@@ -17,6 +17,10 @@ namespace CommunityAPI.Repos
         { 
             _db = db;
         }
+        public async Task<List<BlogPost>> GetAllAsync()
+        {
+            return await _db.BlogPosts.Include(c=>c.Category).ToListAsync();
+        }
         public async Task AddAsync(BlogPost post)
         {
             await _db.BlogPosts.AddAsync(post);
@@ -39,12 +43,12 @@ namespace CommunityAPI.Repos
 
         public async Task<List<BlogPost>> SearchByTitleAsync(string title)
         {
-            return await _db.BlogPosts.Where(p=> p.Title.Contains(title)).ToListAsync();
+            return await _db.BlogPosts.Include(c=>c.Category).Where(p=> p.Title.Contains(title)).ToListAsync();
         }
 
         public async Task<List<BlogPost>> SearchByCategoryAsync(int categoryId)
         {
-            return await _db.BlogPosts.Where(p=>p.CategoryId == categoryId).ToListAsync();
+            return await _db.BlogPosts.Include(c=> c.Category).Where(p=>p.CategoryId == categoryId).ToListAsync();
         }
     }
 }

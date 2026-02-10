@@ -7,6 +7,6 @@ public class TestController : ControllerBase
     [HttpGet]
     public string Get()
     {
-        return "API funkar";
+        return "hej";
     }
 }

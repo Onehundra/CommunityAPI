@@ -11,7 +11,10 @@ namespace CommunityAPI.Services
         {
             _blogPostRepo = blogPostRepo;
         }
-
+        public async Task<List<BlogPost>> GetAllAsync()
+        {
+            return await _blogPostRepo.GetAllAsync();
+        }
         public async Task CreateAsync(BlogPost post)
         {
             await _blogPostRepo.AddAsync(post);
