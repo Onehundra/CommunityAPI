@@ -37,9 +37,9 @@ namespace CommunityAPI.Services
             return await _blogPostRepo.SearchByTitleAsync(title);
         }
 
-        public async Task<List<BlogPost>> SearchByCategoryAsync(int categoryId)
+        public async Task<List<BlogPost>> SearchByCategoryAsync(string categoryName)
         {
-            return await _blogPostRepo.SearchByCategoryAsync(categoryId);
+            return await _blogPostRepo.SearchByCategoryAsync(categoryName);
         }
     }
 }

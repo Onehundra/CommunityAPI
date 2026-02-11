@@ -8,7 +8,7 @@ using CommunityAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c=> { c.EnableAnnotations(); });
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer( "Server=(localdb)\\MSSQLLocalDB;Database=CommunityDb;Trusted_Connection=True;"));
 

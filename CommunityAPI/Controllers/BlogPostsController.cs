@@ -2,6 +2,7 @@
 using CommunityAPI.Interfaces;
 using CommunityAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Reflection;
 
 namespace CommunityAPI.Controllers
@@ -26,6 +27,14 @@ namespace CommunityAPI.Controllers
             return Ok(posts);
         }
 
+
+
+        [SwaggerOperation(
+            Summary = "Creates new blogpost", 
+            Description = "Creates blogpost connected to user and category")]
+        [SwaggerResponse(200, "Blogpost created")]
+        [SwaggerResponse(400, "Wrong inputs")]
+        [SwaggerResponse(404, "User or category not found")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBlogPostDto dto)
         {
@@ -48,6 +57,13 @@ namespace CommunityAPI.Controllers
         }
 
 
+
+        [SwaggerOperation(
+            Summary = "Updates a blogpost",
+            Description = "Only the owner of the post can update the blogpost")]
+        [SwaggerResponse(200,"The post was updated")]
+        [SwaggerResponse(403,"You are not the owner of the post")]
+        [SwaggerResponse(404,"Post not found")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateBlogPostDto dto)
         {
@@ -67,7 +83,12 @@ namespace CommunityAPI.Controllers
             return Ok(post);
         }
 
-
+        [SwaggerOperation(
+            Summary = "Deletes post",
+            Description = "Only the owner of the post can delete it")]
+        [SwaggerResponse(204,"Post deleted")]
+        [SwaggerResponse(403,"You are not the owner")]
+        [SwaggerResponse(404,"Post not found")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete (int id, [FromBody] int userId)
         {
@@ -91,10 +112,10 @@ namespace CommunityAPI.Controllers
         }
 
 
-        [HttpGet("search/category/{categoryId}")]
-        public async Task<IActionResult> SearchByCategory(int categoryId)
+        [HttpGet("search/category/{categoryName}")]
+        public async Task<IActionResult> SearchByCategory(string categoryName)
         {
-            var posts = await _blogPostService.SearchByCategoryAsync(categoryId);
+            var posts = await _blogPostService.SearchByCategoryAsync(categoryName);
             return Ok(posts);
         }
 

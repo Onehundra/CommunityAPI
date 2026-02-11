@@ -46,9 +46,9 @@ namespace CommunityAPI.Repos
             return await _db.BlogPosts.Include(c=>c.Category).Where(p=> p.Title.Contains(title)).ToListAsync();
         }
 
-        public async Task<List<BlogPost>> SearchByCategoryAsync(int categoryId)
+        public async Task<List<BlogPost>> SearchByCategoryAsync(string categoryName)
         {
-            return await _db.BlogPosts.Include(c=> c.Category).Where(p=>p.CategoryId == categoryId).ToListAsync();
+            return await _db.BlogPosts.Include(p=> p.Category).Where(p=>p.Category.Name.ToLower() == categoryName.ToLower()).ToListAsync();
         }
     }
 }
