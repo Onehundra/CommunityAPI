@@ -1,5 +1,5 @@
 ﻿using CommunityAPI.Data;
-using CommunityAPI.Interfaces;
+using CommunityAPI.Interfaces.Repositories;
 using CommunityAPI.Models;
 using Microsoft.EntityFrameworkCore;
 namespace CommunityAPI.Repos

@@ -1,7 +1,7 @@
 ﻿using CommunityAPI.Data;
 using CommunityAPI.Models;
-using CommunityAPI.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using CommunityAPI.Interfaces.Repositories;
 
 
 namespace CommunityAPI.Repos

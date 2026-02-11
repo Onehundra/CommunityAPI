@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CommunityAPI.Interfaces;
 using CommunityAPI.Models;
+using Swashbuckle.AspNetCore.Annotations;
+using CommunityAPI.Interfaces.Services;
 
 namespace CommunityAPI.Controllers
 {
@@ -16,6 +17,12 @@ namespace CommunityAPI.Controllers
             _categoryService = categoryService;
         }
 
+
+        [SwaggerOperation(
+            Summary = "Creates a new category",
+            Description ="Adds a new category that blogposts can connect to")]
+        [SwaggerResponse(200,"Category created")]
+        [SwaggerResponse(400,"Wrong input details")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(Category category)
         {
@@ -23,6 +30,11 @@ namespace CommunityAPI.Controllers
             return Ok(category);
         }
 
+
+
+        [SwaggerOperation(
+            Summary ="Gets all categories",
+            Description ="Returns a list with all categories")]
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {

@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using CommunityAPI.Data;
-using CommunityAPI.Interfaces;
 using CommunityAPI.Repos;
 using CommunityAPI.Services;
+using CommunityAPI.Interfaces.Repositories;
+using CommunityAPI.Interfaces.Services;
 
 
 

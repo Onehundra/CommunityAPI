@@ -1,5 +1,5 @@
 ﻿using CommunityAPI.DTOs;
-using CommunityAPI.Interfaces;
+using CommunityAPI.Interfaces.Services;
 using CommunityAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -33,7 +33,7 @@ namespace CommunityAPI.Controllers
             Summary = "Creates new blogpost", 
             Description = "Creates blogpost connected to user and category")]
         [SwaggerResponse(200, "Blogpost created")]
-        [SwaggerResponse(400, "Wrong inputs")]
+        [SwaggerResponse(400, "Wrong input details")]
         [SwaggerResponse(404, "User or category not found")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBlogPostDto dto)
@@ -104,6 +104,11 @@ namespace CommunityAPI.Controllers
             return NoContent();
         }
 
+
+        [SwaggerOperation(
+            Summary = "Search blogpost through title",
+            Description = "Returns blogpost with the choosen title search")]
+            [SwaggerResponse(200,"Returns list with matching blogposts")]
         [HttpGet("search/{title}")]
         public async Task<IActionResult> Search(string title)
         {
@@ -111,7 +116,10 @@ namespace CommunityAPI.Controllers
             return Ok(posts);
         }
 
-
+        [SwaggerOperation(
+            Summary = "Search blogpost through category name",
+            Description ="Returns blogposts belonging to searched category")]
+        [SwaggerResponse(200,"Returns list with blogposts in the category ")]
         [HttpGet("search/category/{categoryName}")]
         public async Task<IActionResult> SearchByCategory(string categoryName)
         {

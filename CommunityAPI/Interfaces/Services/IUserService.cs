@@ -1,13 +1,11 @@
 ﻿using CommunityAPI.Models;
 
-namespace CommunityAPI.Interfaces
-
+namespace CommunityAPI.Interfaces.Services
 {
-    public interface IUserRepo
+    public interface IUserService
     {
-        Task AddUserAsync(User user);
+        Task CreateUserAsync(User user);
         Task <List<User>> GetAllUsersAsync();
-
         Task <User?> GetUserByIdAsync(int id);
         Task <User?> LoginAsync(string username, string password);
     }

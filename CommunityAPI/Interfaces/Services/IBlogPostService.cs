@@ -1,6 +1,6 @@
 ﻿using CommunityAPI.Models;
 
-namespace CommunityAPI.Interfaces
+namespace CommunityAPI.Interfaces.Services
 {
     public interface IBlogPostService
     {

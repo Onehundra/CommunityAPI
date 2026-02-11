@@ -1,9 +1,10 @@
 ﻿using CommunityAPI.Models;
-namespace CommunityAPI.Interfaces
+
+namespace CommunityAPI.Interfaces.Repositories
 {
-    public interface ICategoryService
+    public interface ICategoryRepo
     {
-        Task CreateAsync(Category category);
+        Task AddAsync (Category category);
         Task <List<Category>> GetAllAsync();
         Task <bool> ExistsAsync(int id);
     }

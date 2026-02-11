@@ -1,4 +1,5 @@
-﻿using CommunityAPI.Interfaces;
+﻿using CommunityAPI.Interfaces.Repositories;
+using CommunityAPI.Interfaces.Services;
 using CommunityAPI.Models;
 
 namespace CommunityAPI.Services

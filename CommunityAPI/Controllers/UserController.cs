@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CommunityAPI.Models;
-using CommunityAPI.Interfaces;
 using CommunityAPI.DTOs;
 using Swashbuckle.AspNetCore.Annotations;
+using CommunityAPI.Interfaces.Services;
 namespace CommunityAPI.Controllers
 {
 
@@ -76,7 +76,6 @@ namespace CommunityAPI.Controllers
             Description ="Return the user with the chosen ID")]
         [SwaggerResponse(200,"User found")]
         [SwaggerResponse(404,"User not found")]
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserByIdAsync(int id)
         {

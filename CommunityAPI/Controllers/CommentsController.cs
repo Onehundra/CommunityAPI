@@ -1,10 +1,11 @@
-﻿using CommunityAPI.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CommunityAPI.Models;
 using CommunityAPI.DTOs;
 using CommunityAPI.Services;
 using System.Xml;
+using Swashbuckle.AspNetCore.Annotations;
+using CommunityAPI.Interfaces.Services;
 
 namespace CommunityAPI.Controllers
 {
@@ -21,6 +22,15 @@ namespace CommunityAPI.Controllers
             _blogPostService = blogPostService;
         }
 
+
+
+        [SwaggerOperation(
+            Summary = "Creates a comment",
+            Description ="User can comment others blogpost but not their own blogpost")]
+        [SwaggerResponse(200,"Creates comment")]
+        [SwaggerResponse(400,"Wrong input details")]
+        [SwaggerResponse(403,"You can't comment your own blogpost")]
+        [SwaggerResponse(404,"Blogpost not found")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCommentDto dto)
         {
